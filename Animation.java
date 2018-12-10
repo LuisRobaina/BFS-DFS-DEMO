@@ -16,7 +16,7 @@ class Node {
 	public boolean equals(Node that) {
 		if (that == null)
 			return false;
-		if (Math.abs(this.x - that.x) <= 0.09 && Math.abs(this.y - that.y) <= 0.09)
+		if (Math.abs(this.x - that.x) <= 0.01 && Math.abs(this.y - that.y) <= 0.01)
 			return true;
 		return false;
 	}
@@ -31,12 +31,15 @@ class Node {
 public class Animation {
 
 	public static void main(String[] args) {
-		int N = 50; // Number of nodes on the graph
+		Scanner in = new Scanner(System.in);
+		System.out.print("Enter number of vertices: ");
+		int N = in.nextInt(); // Number of nodes on the graph
 		ArrayList<Node> nodes = new ArrayList<>();
 		Node p;
 		boolean equals = false;
-		StdDraw.setCanvasSize(1000, 1000);
+		StdDraw.setCanvasSize(1500, 1000);
 		StdDraw.setPenRadius(0.005);
+
 		for (int i = 0; i < N; i++) {
 			equals = false;
 			p = new Node((Math.random() * 0.99) + 0.005, (Math.random() * 0.99) + 0.005);
@@ -69,7 +72,6 @@ public class Animation {
 		System.out.println(
 				"\n\n**********************************************************************************\n\t\tWELCOME TO THE BFS and DFS DEMO\n**********************************************************************************");
 		String traverse = " ";
-		Scanner in = new Scanner(System.in);
 		traverse = in.nextLine();
 		boolean path = false;
 		Node source = null;
@@ -78,7 +80,13 @@ public class Animation {
 			if (traverse.contains("SET")) {
 				path = true;
 				source = nodes.get((int) Math.floor(Math.random() * nodes.size() - 1));
+				while (source.bag.isEmpty()) {
+					source = nodes.get((int) Math.floor(Math.random() * nodes.size() - 1));
+				}
 				sink = nodes.get((int) Math.floor(Math.random() * nodes.size() - 1));
+				while (sink.bag.isEmpty()) {
+					sink = nodes.get((int) Math.floor(Math.random() * nodes.size() - 1));
+				}
 				StdDraw.setPenColor(Color.RED);
 				StdDraw.setPenRadius(0.05);
 				StdDraw.text(source.x, source.y + 0.005, "SOURCE");
@@ -93,10 +101,17 @@ public class Animation {
 				else {
 					BFS bfs = new BFS(nodes); // Run BFS
 				}
+
 			} else if (traverse.contains("DFS")) {
 				// call depth first search traverse.
-			}
+				if (path) {
+					DFS dfs = new DFS(nodes, source, sink); // Run DFS
+				}
 
+				else {
+					DFS dfs = new DFS(nodes); // Run DFS
+				}
+			}
 			traverse = in.nextLine();
 		}
 

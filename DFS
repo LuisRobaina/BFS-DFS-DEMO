@@ -1,0 +1,73 @@
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Stack;
+
+class DFS {
+ArrayList<Node> nodes;
+    // Visiting Queue
+    Stack<Node> visit;
+    // Map set to backtrace
+    HashMap<Node, Node> backtrace;
+    // Set of visited
+    ArrayList<Node> visited;
+
+    DFS(ArrayList<Node> nodes) {
+        visit = new LinkedList<>();
+        visited = new ArrayList<>();
+        this.nodes = nodes;
+        traverse(nodes.get(0), false, null, null);
+    }
+    DFS(ArrayList<Node> nodes, Node source, Node sink) {
+        backtrace = new HashMap<Node, Node>();
+        visit = new LinkedList<>();
+        visited = new ArrayList<>();
+        this.nodes = nodes;
+        traverse(source, true, source, sink);
+    }
+    
+    private void traverse(Node n, boolean path, Node source, Node sink) {
+        visit.push(n);
+        visited.add(n);
+        StdDraw.filledCircle(n.x, n.y, 0.005);
+        explore(n,source,sink);
+        visit.pop();
+        System.out.println("DONE");
+    }
+
+    private void explore(Node n, Node source, Node sink) {
+        for(Node a : n.bag){
+            StdDraw.setPenColor(Color.RED);
+            if(!visited.contains(a)){
+                StdDraw.line(n.x, n.y, a.x, a.y);
+                visited.add(a);
+                visit.push(a);
+                visited.add(a);
+                StdDraw.pause(1500);
+                StdDraw.setPenColor(Color.BLACK);
+                StdDraw.line(n.x, n.y, a.x, a.y);
+                explore(a,source,sink);
+            }
+        }
+        visit.pop();
+    }
+    private void explore(Node n) {
+        for(Node a : n.bag){
+            StdDraw.setPenColor(Color.RED);
+            if(!visited.contains(a)){
+                StdDraw.line(n.x, n.y, a.x, a.y);
+                visited.add(a);
+                visit.push(a);
+                visited.add(a);
+                StdDraw.pause(1500);
+                StdDraw.setPenColor(Color.BLACK);
+                StdDraw.line(n.x, n.y, a.x, a.y);
+                explore(a,source,sink);
+            }
+        }
+        visit.pop();
+
+    }
+
+}
