@@ -1,2 +1,4 @@
 # BFS-DFS-DEMO
-![](https://github.com/LuisRobaina/BFS-DFS-DEMO/blob/master/Screenshot%20from%202018-12-06%2023-31-55.png)
+![](https://github.com/LuisRobaina/BFS-DFS-DEMO/Screenshot%from%2018-12-0%20-35-59.png)
+      
+        
